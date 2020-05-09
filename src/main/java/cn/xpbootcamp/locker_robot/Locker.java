@@ -1,5 +1,6 @@
 package cn.xpbootcamp.locker_robot;
 
+import cn.xpbootcamp.locker_robot.exception.InvalidReceiptException;
 import cn.xpbootcamp.locker_robot.exception.NoAvailableLockerBoxException;
 
 import java.util.List;
@@ -31,6 +32,16 @@ public class Locker {
       return selectedBox;
     } else {
       throw new NoAvailableLockerBoxException("Locker is full");
+    }
+  }
+
+  public void withdraw(String receiptNumber) throws InvalidReceiptException {
+    Optional<LockerBox> matchedLockerBox = lockerBoxes.stream()
+        .filter(box -> box.getReceipt() != null && box.getReceipt().getReceiptNumber().equals(receiptNumber)).findAny();
+    if (matchedLockerBox.isPresent()) {
+      matchedLockerBox.get().withdraw();
+    } else {
+      throw new InvalidReceiptException("Receipt is invalid");
     }
   }
 

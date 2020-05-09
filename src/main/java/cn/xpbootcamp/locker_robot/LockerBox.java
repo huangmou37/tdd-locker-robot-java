@@ -12,9 +12,7 @@ public class LockerBox {
     this.receipt = new Receipt();
   }
 
-  public void closeDoor() {
-    if (receipt != null && !receipt.isEnabled()) {
-      receipt = null;
-    }
+  public void withdraw() {
+    this.receipt = null;
   }
 }
