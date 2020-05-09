@@ -17,17 +17,11 @@ public class LockerTest {
   }
 
   @Test
-  void shouldReturnBoxWhenDepositAndNumberOfAvailableBoxesLargerThanZero() throws NoAvailableLockerBoxException {
+  void shouldReturnBoxAndDecreaseNumberOfAvailableBoxesWhenDepositGivenNumberOfAvailableBoxesLargerThanZero() throws NoAvailableLockerBoxException {
     Locker locker = new Locker(20);
     LockerBox box = locker.deposit();
     assertNotNull(box);
     assertNotNull(box.getReceipt());
-  }
-
-  @Test
-  void shouldReduceNumberOfAvailableBoxesWhenDepositSuccessfully() throws NoAvailableLockerBoxException {
-    Locker locker = new Locker(20);
-    locker.deposit();
     assertEquals(19, locker.getNumberOfAvailableBoxes());
   }
 
