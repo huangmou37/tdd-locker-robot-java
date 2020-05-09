@@ -11,4 +11,10 @@ public class LockerBox {
   public void deposit() {
     this.receipt = new Receipt();
   }
+
+  public void closeDoor() {
+    if (receipt != null && !receipt.isEnabled()) {
+      receipt = null;
+    }
+  }
 }

@@ -41,4 +41,13 @@ public class LockerTest {
     NoAvailableLockerBoxException exception = assertThrows(NoAvailableLockerBoxException.class, locker::deposit);
     assertEquals("Locker is full", exception.getMessage() );
   }
+
+  @Test
+  void shouldRemainTheNumberOfAvailableBoxesWhenBoxIsClosedAfterDeposit() throws NoAvailableLockerBoxException {
+    Locker locker = new Locker(5);
+    LockerBox box = locker.deposit();
+    assertEquals(4, locker.getNumberOfAvailableBoxes());
+    box.closeDoor();
+    assertEquals(4, locker.getNumberOfAvailableBoxes());
+  }
 }
