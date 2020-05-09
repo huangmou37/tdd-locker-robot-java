@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class LockerTest {
 
   @Test
-  void shouldHasNumberOfAvailableBoxesAsCapacityWhenInitialized() {
+  void should_has_number_of_available_boxes_as_capacity_when_initialized() {
     Locker locker = new Locker(20);
     assertEquals(20, locker.getNumberOfAvailableBoxes());
   }
 
   @Test
-  void shouldReturnBoxAndDecreaseNumberOfAvailableBoxesWhenDepositGivenNumberOfAvailableBoxesLargerThanZero() throws NoAvailableLockerBoxException {
+  void should_return_box_and_decrease_number_of_available_boxes_when_deposit_given_having_available_box() throws NoAvailableLockerBoxException {
     Locker locker = new Locker(20);
     LockerBox box = locker.deposit();
     assertNotNull(box);
@@ -26,7 +26,7 @@ public class LockerTest {
   }
 
   @Test
-  void shouldThrowExceptionWhenDepositNoAvailableBox() throws NoAvailableLockerBoxException {
+  void should_throw_exception_when_deposit_given_no_available_box() throws NoAvailableLockerBoxException {
     Locker locker = new Locker(5);
     for (int i = 0; i < 5; i++) {
       locker.deposit();
@@ -37,7 +37,7 @@ public class LockerTest {
   }
 
   @Test
-  void shouldIncreaseNumberOfAvailableBoxesWhenWithdrawWithValidReceipt()
+  void should_increase_number_of_available_boxes_when_withdraw_given_valid_receipt()
       throws NoAvailableLockerBoxException, InvalidReceiptException {
     Locker locker = new Locker(5);
     LockerBox box = locker.deposit();
@@ -48,7 +48,7 @@ public class LockerTest {
   }
 
   @Test
-  void shouldThrowExceptionWhenWithdrawWithInvalidReceipt()
+  void should_throw_exception_when_withdraw_given_invalid_receipt()
       throws NoAvailableLockerBoxException {
     Locker locker = new Locker(5);
     LockerBox box = locker.deposit();
