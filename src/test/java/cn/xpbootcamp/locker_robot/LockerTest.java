@@ -18,4 +18,11 @@ public class LockerTest {
     Locker locker = new Locker(20);
     assertTrue(locker.deposit());
   }
+
+  @Test
+  void shouldReduceNumberOfAvailableBoxesWhenDepositSuccessfully() {
+    Locker locker = new Locker(20);
+    locker.deposit();
+    assertEquals(19, locker.getNumberOfAvailableBoxes());
+  }
 }
