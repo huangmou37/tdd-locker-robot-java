@@ -10,5 +10,9 @@ public class Locker {
     return capacity;
   }
 
+  public boolean deposit() {
+    return getNumberOfAvailableBoxes() > 0;
+  }
+
   private int capacity;
 }

@@ -3,6 +3,7 @@ package cn.xpbootcamp.locker_robot;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LockerTest {
 
@@ -10,5 +11,11 @@ public class LockerTest {
   void shouldHasNumberOfAvailableBoxesAsCapacityWhenInitialized() {
     Locker locker = new Locker(20);
     assertEquals(20, locker.getNumberOfAvailableBoxes());
+  }
+
+  @Test
+  void shouldReturnTrueWhenDepositAndNumberOfAvailableBoxesLargerThanZero() {
+    Locker locker = new Locker(20);
+    assertTrue(locker.deposit());
   }
 }
