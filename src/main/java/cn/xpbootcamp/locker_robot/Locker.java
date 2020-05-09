@@ -1,5 +1,7 @@
 package cn.xpbootcamp.locker_robot;
 
+import cn.xpbootcamp.locker_robot.exception.NoAvailableLockerBoxException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,13 +23,14 @@ public class Locker {
     return lockerBoxes.stream().filter(lockerBox -> lockerBox.getReceipt() == null).findAny();
   }
 
-  public boolean deposit() {
+  public LockerBox deposit() throws NoAvailableLockerBoxException {
     Optional<LockerBox> lockerBox = findNextAvailableBox();
     if (lockerBox.isPresent()) {
-      lockerBox.get().deposit();
-      return true;
+      LockerBox selectedBox = lockerBox.get();
+      selectedBox.deposit();
+      return selectedBox;
     } else {
-      return false;
+      throw new NoAvailableLockerBoxException("Locker is full");
     }
   }
 
