@@ -2,17 +2,21 @@ package cn.xpbootcamp.locker_robot;
 
 public class LockerBox {
 
-  private Receipt receipt;
-
-  public Receipt getReceipt() {
-    return receipt;
+  public LockerBox() {
+    this.available = true;
   }
 
   public void deposit() {
-    this.receipt = new Receipt();
+    this.available = false;
   }
 
   public void withdraw() {
-    this.receipt = null;
+    this.available = true;
   }
+
+  public boolean isAvailable() {
+    return available;
+  }
+
+  private boolean available;
 }

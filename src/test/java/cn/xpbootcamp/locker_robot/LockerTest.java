@@ -44,7 +44,7 @@ public class LockerTest {
     String receiptNumber = receipt.getReceiptNumber();
 
     // when & then
-    assertDoesNotThrow(() -> locker.withdraw(receipt.getReceiptNumber()));
+    assertDoesNotThrow(() -> locker.withdraw(receiptNumber));
   }
 
   @Test

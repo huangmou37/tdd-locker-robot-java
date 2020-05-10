@@ -6,7 +6,6 @@ public class Receipt {
 
   public Receipt() {
     receiptNumber = UUID.randomUUID().toString();
-    enabled = true;
   }
 
   public String getReceiptNumber() {
@@ -15,5 +14,4 @@ public class Receipt {
 
   private String receiptNumber;
 
-  private boolean enabled;
 }
