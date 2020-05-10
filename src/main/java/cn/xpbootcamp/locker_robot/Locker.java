@@ -20,10 +20,6 @@ public class Locker {
     return (int) lockerBoxes.stream().filter(lockerBox -> lockerBox.getReceipt() == null).count();
   }
 
-  public Optional<LockerBox> findNextAvailableBox() {
-    return lockerBoxes.stream().filter(lockerBox -> lockerBox.getReceipt() == null).findAny();
-  }
-
   public LockerBox deposit() throws NoAvailableLockerBoxException {
     Optional<LockerBox> lockerBox = findNextAvailableBox();
     if (lockerBox.isPresent()) {
@@ -43,6 +39,10 @@ public class Locker {
     } else {
       throw new InvalidReceiptException("Receipt is invalid");
     }
+  }
+
+  private Optional<LockerBox> findNextAvailableBox() {
+    return lockerBoxes.stream().filter(lockerBox -> lockerBox.getReceipt() == null).findAny();
   }
 
   private int capacity;

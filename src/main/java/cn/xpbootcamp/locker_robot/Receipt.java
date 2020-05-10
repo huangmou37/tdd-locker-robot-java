@@ -9,14 +9,6 @@ public class Receipt {
     enabled = true;
   }
 
-  public boolean isEnabled() {
-    return enabled;
-  }
-
-  public void disable() {
-    enabled = false;
-  }
-
   public String getReceiptNumber() {
     return receiptNumber;
   }
