@@ -16,18 +16,14 @@ public class Locker {
     lockerBoxes = IntStream.range(0, capacity).mapToObj(i -> new LockerBox()).collect(Collectors.toList());
   }
 
-  public int getNumberOfAvailableBoxes() {
-    return (int) lockerBoxes.stream().filter(lockerBox -> lockerBox.getReceipt() == null).count();
-  }
-
-  public LockerBox deposit() throws NoAvailableLockerBoxException {
+  public Receipt deposit() throws NoAvailableLockerBoxException {
     Optional<LockerBox> lockerBox = findNextAvailableBox();
     if (lockerBox.isPresent()) {
       LockerBox selectedBox = lockerBox.get();
       selectedBox.deposit();
-      return selectedBox;
+      return selectedBox.getReceipt();
     } else {
-      throw new NoAvailableLockerBoxException("Locker is full");
+      throw new NoAvailableLockerBoxException();
     }
   }
 
@@ -37,7 +33,7 @@ public class Locker {
     if (matchedLockerBox.isPresent()) {
       matchedLockerBox.get().withdraw();
     } else {
-      throw new InvalidReceiptException("Receipt is invalid");
+      throw new InvalidReceiptException();
     }
   }
 
