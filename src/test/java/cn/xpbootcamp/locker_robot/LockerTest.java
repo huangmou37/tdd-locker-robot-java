@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class LockerTest {
 
   @Test
-  void should_return_receipt_when_deposit_given_having_available_box() throws LockerIsFullException {
+  void should_return_receipt_when_deposit_given_locker_is_not_full() throws LockerIsFullException {
     // given
     Locker locker = new Locker(20);
 
@@ -23,7 +23,7 @@ public class LockerTest {
   }
 
   @Test
-  void should_throw_exception_when_deposit_given_no_available_box() throws LockerIsFullException {
+  void should_throw_exception_when_deposit_given_locker_is_full() throws LockerIsFullException {
     // given
     Locker locker = new Locker(5);
     for (int i = 0; i < 5; i++) {
