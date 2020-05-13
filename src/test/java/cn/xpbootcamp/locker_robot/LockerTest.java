@@ -1,10 +1,9 @@
 package cn.xpbootcamp.locker_robot;
 
 import cn.xpbootcamp.locker_robot.exception.InvalidReceiptException;
-import cn.xpbootcamp.locker_robot.exception.NoAvailableLockerBoxException;
+import cn.xpbootcamp.locker_robot.exception.LockerIsFullException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,47 +11,48 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class LockerTest {
 
   @Test
-  void should_return_receipt_when_deposit_given_having_available_box() throws NoAvailableLockerBoxException {
+  void should_return_receipt_when_deposit_given_having_available_box() throws LockerIsFullException {
     // given
     Locker locker = new Locker(20);
 
     // when
-    Receipt receipt = locker.deposit();
+    Receipt receipt = locker.deposit(new UserPackage());
 
     // then
     assertNotNull(receipt.getReceiptNumber());
   }
 
   @Test
-  void should_throw_exception_when_deposit_given_no_available_box() throws NoAvailableLockerBoxException {
+  void should_throw_exception_when_deposit_given_no_available_box() throws LockerIsFullException {
     // given
     Locker locker = new Locker(5);
     for (int i = 0; i < 5; i++) {
-      locker.deposit();
+      locker.deposit(new UserPackage());
     }
 
     // when & then
-    assertThrows(NoAvailableLockerBoxException.class, locker::deposit);
+    assertThrows(LockerIsFullException.class, () -> locker.deposit(new UserPackage()));
   }
 
   @Test
-  void should_increase_number_of_available_boxes_when_withdraw_given_valid_receipt()
-      throws NoAvailableLockerBoxException {
+  void should_return_deposited_package_when_withdraw_given_valid_receipt()
+      throws LockerIsFullException, InvalidReceiptException {
     // given
     Locker locker = new Locker(5);
-    Receipt receipt = locker.deposit();
+    UserPackage packageDeposited = new UserPackage();
+    Receipt receipt = locker.deposit(packageDeposited);
     String receiptNumber = receipt.getReceiptNumber();
 
     // when & then
-    assertDoesNotThrow(() -> locker.withdraw(receiptNumber));
+    assertEquals(packageDeposited, locker.withdraw(receiptNumber));
   }
 
   @Test
   void should_throw_exception_when_withdraw_given_invalid_receipt()
-      throws NoAvailableLockerBoxException {
+      throws LockerIsFullException {
     // given
     Locker locker = new Locker(5);
-    locker.deposit();
+    locker.deposit(new UserPackage());
 
     // when & then
     assertThrows(InvalidReceiptException.class,

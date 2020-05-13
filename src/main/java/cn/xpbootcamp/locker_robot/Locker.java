@@ -1,54 +1,44 @@
 package cn.xpbootcamp.locker_robot;
 
 import cn.xpbootcamp.locker_robot.exception.InvalidReceiptException;
-import cn.xpbootcamp.locker_robot.exception.NoAvailableLockerBoxException;
+import cn.xpbootcamp.locker_robot.exception.LockerIsFullException;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Locker {
 
   public Locker(int capacity) {
     this.capacity = capacity;
+    this.occupied = 0;
 
-    lockerBoxes = IntStream.range(0, capacity).mapToObj(i -> new LockerBox()).collect(Collectors.toList());
-    lockerBoxReceiptMap = new HashMap<>();
+    userPackageReceiptMap = new HashMap<>();
   }
 
-  public Receipt deposit() throws NoAvailableLockerBoxException {
-    Optional<LockerBox> lockerBox = findNextAvailableBox();
-    if (lockerBox.isPresent()) {
-      LockerBox selectedBox = lockerBox.get();
-      selectedBox.deposit();
+  public Receipt deposit(UserPackage userPackage) throws LockerIsFullException {
+    if (occupied < capacity) {
       Receipt receipt = new Receipt();
-      lockerBoxReceiptMap.put(receipt.getReceiptNumber(), selectedBox);
+      userPackageReceiptMap.put(receipt.getReceiptNumber(), userPackage);
+      occupied ++;
       return receipt;
     } else {
-      throw new NoAvailableLockerBoxException();
+      throw new LockerIsFullException();
     }
   }
 
-  public void withdraw(String receiptNumber) throws InvalidReceiptException {
-    if (lockerBoxReceiptMap.containsKey(receiptNumber)) {
-      LockerBox lockerBox = lockerBoxReceiptMap.get(receiptNumber);
-      lockerBox.withdraw();
-      lockerBoxReceiptMap.remove(receiptNumber);
+  public UserPackage withdraw(String receiptNumber) throws InvalidReceiptException {
+    if (userPackageReceiptMap.containsKey(receiptNumber)) {
+      UserPackage userPackage = userPackageReceiptMap.get(receiptNumber);
+      userPackageReceiptMap.remove(receiptNumber);
+      occupied --;
+      return userPackage;
     } else {
       throw new InvalidReceiptException();
     }
   }
 
-  private Optional<LockerBox> findNextAvailableBox() {
-    return lockerBoxes.stream().filter(LockerBox::isAvailable).findAny();
-  }
-
   private int capacity;
+  private int occupied;
 
-  private List<LockerBox> lockerBoxes;
-
-  private Map<String, LockerBox> lockerBoxReceiptMap;
+  private Map<String, UserPackage> userPackageReceiptMap;
 }
