@@ -44,7 +44,7 @@ public class LockerTest {
     String receiptNumber = receipt.getReceiptNumber();
 
     // when & then
-    assertEquals(packageDeposited, locker.withdraw(receiptNumber));
+    assertEquals(packageDeposited, locker.withdraw(receipt));
   }
 
   @Test
@@ -56,6 +56,6 @@ public class LockerTest {
 
     // when & then
     assertThrows(InvalidReceiptException.class,
-        () -> locker.withdraw("fake-receipt-number"));
+        () -> locker.withdraw(new Receipt()));
   }
 }

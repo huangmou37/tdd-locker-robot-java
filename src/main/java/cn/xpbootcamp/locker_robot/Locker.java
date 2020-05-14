@@ -12,13 +12,13 @@ public class Locker {
     this.capacity = capacity;
     this.occupied = 0;
 
-    userPackageReceiptMap = new HashMap<>();
+    receiptToUserPackageMap = new HashMap<>();
   }
 
   public Receipt deposit(UserPackage userPackage) throws LockerIsFullException {
     if (occupied < capacity) {
       Receipt receipt = new Receipt();
-      userPackageReceiptMap.put(receipt.getReceiptNumber(), userPackage);
+      receiptToUserPackageMap.put(receipt.getReceiptNumber(), userPackage);
       occupied ++;
       return receipt;
     } else {
@@ -26,10 +26,11 @@ public class Locker {
     }
   }
 
-  public UserPackage withdraw(String receiptNumber) throws InvalidReceiptException {
-    if (userPackageReceiptMap.containsKey(receiptNumber)) {
-      UserPackage userPackage = userPackageReceiptMap.get(receiptNumber);
-      userPackageReceiptMap.remove(receiptNumber);
+  public UserPackage withdraw(Receipt receipt) throws InvalidReceiptException {
+    String receiptNumber = receipt.getReceiptNumber();
+    if (receiptToUserPackageMap.containsKey(receiptNumber)) {
+      UserPackage userPackage = receiptToUserPackageMap.get(receiptNumber);
+      receiptToUserPackageMap.remove(receiptNumber);
       occupied --;
       return userPackage;
     } else {
@@ -40,10 +41,10 @@ public class Locker {
   private int capacity;
   private int occupied;
 
-  private Map<String, UserPackage> userPackageReceiptMap;
+  private Map<String, UserPackage> receiptToUserPackageMap;
 
   public boolean hasPackage(Receipt receipt) {
-    return userPackageReceiptMap.containsKey(receipt.getReceiptNumber());
+    return receiptToUserPackageMap.containsKey(receipt.getReceiptNumber());
   }
 
   public boolean isAvailable() {

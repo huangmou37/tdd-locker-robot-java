@@ -3,7 +3,6 @@ package cn.xpbootcamp.locker_robot;
 import cn.xpbootcamp.locker_robot.exception.InvalidReceiptException;
 import cn.xpbootcamp.locker_robot.exception.LockerIsFullException;
 import java.util.List;
-import java.util.Optional;
 
 public class LockerRobot {
 
@@ -27,6 +26,6 @@ public class LockerRobot {
 
   public UserPackage withdraw(Receipt receipt) {
     Locker locker = findPackageLocation(receipt);
-    return locker.withdraw(receipt.getReceiptNumber());
+    return locker.withdraw(receipt);
   }
 }
