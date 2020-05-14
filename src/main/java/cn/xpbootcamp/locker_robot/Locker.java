@@ -41,4 +41,14 @@ public class Locker {
   private int occupied;
 
   private Map<String, UserPackage> userPackageReceiptMap;
+
+  public boolean hasPackage(Receipt receipt) {
+    return userPackageReceiptMap.containsKey(receipt.getReceiptNumber());
+  }
+
+  public boolean isAvailable() {
+    return this.capacity > this.occupied;
+  }
+
+
 }

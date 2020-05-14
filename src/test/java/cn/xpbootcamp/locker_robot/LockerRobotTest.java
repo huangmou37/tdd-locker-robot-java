@@ -2,13 +2,11 @@ package cn.xpbootcamp.locker_robot;
 
 import cn.xpbootcamp.locker_robot.exception.InvalidReceiptException;
 import cn.xpbootcamp.locker_robot.exception.LockerIsFullException;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,16 +23,13 @@ public class LockerRobotTest {
     LockerRobot lockerRobot = new LockerRobot(lockers);
     Locker firstLocker = lockers.get(0);
 
+    UserPackage userPackage = new UserPackage();
+
     // when
-    List<Receipt> receipts = new ArrayList<>();
-    for (int i = 0; i < capacityOfLocker; i++) {
-      receipts.add(lockerRobot.deposit(new UserPackage()));
-    }
+    Receipt receipt = lockerRobot.deposit(userPackage);
 
     // then
-    for (int i = 0; i < capacityOfLocker; i++) {
-      assertEquals(firstLocker, lockerRobot.findPackageLocation(receipts.get(i)));
-    }
+    assertEquals(firstLocker, lockerRobot.findPackageLocation(receipt));
   }
 
   @Test
