@@ -20,11 +20,12 @@ public class LockerRobot {
         .orElseThrow(LockerIsFullException::new);
   }
 
-  public Locker findPackageLocation(Receipt receipt) {
+  Locker findPackageLocation(Receipt receipt) {
     return lockers.stream().filter(locker -> locker.hasPackage(receipt)).findFirst().get();
   }
 
   public UserPackage withdraw(Receipt receipt) {
-    return null;
+    Locker locker = findPackageLocation(receipt);
+    return locker.withdraw(receipt.getReceiptNumber());
   }
 }
