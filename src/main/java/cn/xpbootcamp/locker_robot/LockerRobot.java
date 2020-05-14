@@ -13,8 +13,11 @@ public class LockerRobot {
   }
 
   public Receipt deposit(UserPackage userPackage) throws LockerIsFullException {
-    Optional<Locker> firstAvailableLocker = lockers.stream().filter(Locker::isAvailable).findFirst();
-    return firstAvailableLocker.get().deposit(userPackage);
+    return lockers.stream()
+        .filter(Locker::isAvailable)
+        .findFirst()
+        .map(locker -> locker.deposit(userPackage))
+        .orElseThrow(LockerIsFullException::new);
   }
 
   public Locker findPackageLocation(Receipt receipt) {
