@@ -71,13 +71,36 @@ public class LockerRobotTest {
   }
 
   @Test
-  void should_return_deposited_package_when_withdraw_package_given_valid_receipt() {
+  void should_return_deposited_package_when_withdraw_package_given_valid_receipt_with_package_in_first_locker() {
     // given
     int numberOfLocker = 2;
     int capacityOfLocker = 2;
     List<Locker> lockers = IntStream.range(0, numberOfLocker).mapToObj(i -> new Locker(capacityOfLocker))
         .collect(Collectors.toList());
     LockerRobot lockerRobot = new LockerRobot(lockers);
+    UserPackage depositedPackage = new UserPackage();
+    Receipt receipt = lockerRobot.deposit(depositedPackage);
+
+    // when
+    UserPackage withdrawnPackage = lockerRobot.withdraw(receipt);
+
+    // then
+    assertEquals(depositedPackage, withdrawnPackage);
+  }
+
+  @Test
+  void should_return_deposited_package_when_withdraw_package_given_valid_receipt_with_package_in_second_locker() {
+    // given
+    int numberOfLocker = 2;
+    int capacityOfLocker = 2;
+    List<Locker> lockers = IntStream.range(0, numberOfLocker).mapToObj(i -> new Locker(capacityOfLocker))
+        .collect(Collectors.toList());
+    LockerRobot lockerRobot = new LockerRobot(lockers);
+
+    for (int i = 0; i < capacityOfLocker; i++) {
+      lockerRobot.deposit(new UserPackage());
+    }
+
     UserPackage depositedPackage = new UserPackage();
     Receipt receipt = lockerRobot.deposit(depositedPackage);
 
