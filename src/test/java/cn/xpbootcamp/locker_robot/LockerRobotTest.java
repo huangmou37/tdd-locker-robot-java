@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class LockerRobotTest {
 
   @Test
-  void should_deposit_in_first_locker_given_two_lockers_and_first_locker_is_not_full_when_deposit_package() {
+  void should_deposit_in_first_locker_when_deposit_package_given_two_lockers_and_first_locker_is_not_full() {
     // given
     int numberOfLocker = 2;
     int capacityOfLocker = 2;
@@ -33,7 +33,7 @@ public class LockerRobotTest {
   }
 
   @Test
-  void should_deposit_in_second_locker_given_two_lockers_and_first_locker_is_full_when_deposit_package() {
+  void should_deposit_in_second_locker_when_deposit_package_given_two_lockers_and_first_locker_is_full() {
     // given
     int numberOfLocker = 2;
     int capacityOfLocker = 2;
@@ -54,7 +54,7 @@ public class LockerRobotTest {
   }
 
   @Test
-  void should_throw_exception_given_two_lockers_and_both_lockers_are_full_when_deposit_package() {
+  void should_throw_exception_when_deposit_package_given_two_lockers_and_both_lockers_are_full() {
     // given
     int numberOfLocker = 2;
     int capacityOfLocker = 2;
@@ -71,7 +71,7 @@ public class LockerRobotTest {
   }
 
   @Test
-  void should_return_deposited_package_given_valid_receipt_when_withdraw_package() {
+  void should_return_deposited_package_when_withdraw_package_given_valid_receipt() {
     // given
     int numberOfLocker = 2;
     int capacityOfLocker = 2;
@@ -89,7 +89,7 @@ public class LockerRobotTest {
   }
 
   @Test
-  void should_throw_exception_given_invalid_receipt_when_withdraw_package() {
+  void should_throw_exception_when_withdraw_package_given_invalid_receipt() {
     // given
     LockerRobot lockerRobot = new LockerRobot(Collections.singletonList(new Locker(2)));
 
@@ -98,7 +98,7 @@ public class LockerRobotTest {
   }
 
   @Test
-  void should_throw_exception_given_used_receipt_when_withdraw_package() {
+  void should_throw_exception_when_withdraw_package_given_used_receipt() {
     // given
     LockerRobot lockerRobot = new LockerRobot(Collections.singletonList(new Locker(2)));
     Receipt receipt = lockerRobot.deposit(new UserPackage());
