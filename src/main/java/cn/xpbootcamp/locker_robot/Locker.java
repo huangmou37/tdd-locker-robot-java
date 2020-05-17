@@ -10,16 +10,14 @@ public class Locker {
 
   public Locker(int capacity) {
     this.capacity = capacity;
-    this.occupied = 0;
 
     receiptToUserPackageMap = new HashMap<>();
   }
 
   public Receipt deposit(UserPackage userPackage) throws LockerIsFullException {
-    if (occupied < capacity) {
+    if (this.receiptToUserPackageMap.size() < capacity) {
       Receipt receipt = new Receipt();
       receiptToUserPackageMap.put(receipt.getReceiptNumber(), userPackage);
-      occupied ++;
       return receipt;
     } else {
       throw new LockerIsFullException();
@@ -31,7 +29,6 @@ public class Locker {
     if (receiptToUserPackageMap.containsKey(receiptNumber)) {
       UserPackage userPackage = receiptToUserPackageMap.get(receiptNumber);
       receiptToUserPackageMap.remove(receiptNumber);
-      occupied --;
       return userPackage;
     } else {
       throw new InvalidReceiptException();
@@ -39,7 +36,6 @@ public class Locker {
   }
 
   private int capacity;
-  private int occupied;
 
   private Map<String, UserPackage> receiptToUserPackageMap;
 
@@ -48,7 +44,7 @@ public class Locker {
   }
 
   public boolean isAvailable() {
-    return this.capacity > this.occupied;
+    return this.capacity > this.receiptToUserPackageMap.size();
   }
 
 
