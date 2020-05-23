@@ -48,8 +48,8 @@ class SmartLockerRobotTest {
     // given
     Locker firstLocker = new Locker(2);
     Locker secondLocker = new Locker(2);
-    Locker ThirdLocker = new Locker(1);
-    SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker));
+    Locker thirdLocker = new Locker(1);
+    SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker, thirdLocker));
 
     // when
     Receipt receipt = smartLockerRobot.deposit(new UserPackage());
