@@ -35,6 +35,10 @@ public class Locker {
     }
   }
 
+  public int getRemaining() {
+    return capacity - receiptToUserPackageMap.size();
+  }
+
   private int capacity;
 
   private Map<String, UserPackage> receiptToUserPackageMap;

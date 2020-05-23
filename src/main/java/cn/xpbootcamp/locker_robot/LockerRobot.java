@@ -6,7 +6,7 @@ import java.util.List;
 
 public class LockerRobot {
 
-  private List<Locker> lockers;
+  protected List<Locker> lockers;
 
   public LockerRobot(List<Locker> lockers) {
     this.lockers = lockers;
