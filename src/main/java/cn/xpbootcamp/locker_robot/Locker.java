@@ -39,17 +39,16 @@ public class Locker {
     return capacity - receiptToUserPackageMap.size();
   }
 
-  private int capacity;
-
-  private Map<String, UserPackage> receiptToUserPackageMap;
-
   public boolean hasPackage(Receipt receipt) {
     return receiptToUserPackageMap.containsKey(receipt.getReceiptNumber());
   }
 
   public boolean isAvailable() {
-    return this.capacity > this.receiptToUserPackageMap.size();
+    return getRemaining() > 0;
   }
 
+  private int capacity;
+
+  private Map<String, UserPackage> receiptToUserPackageMap;
 
 }
