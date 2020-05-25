@@ -4,21 +4,20 @@ import cn.xpbootcamp.locker_robot.exception.InvalidReceiptException;
 import cn.xpbootcamp.locker_robot.exception.LockerIsFullException;
 import java.util.List;
 
-public class LockerRobot {
+public abstract class AbstractLockerRobot {
 
   protected List<Locker> lockers;
 
-  public LockerRobot(List<Locker> lockers) {
+  public AbstractLockerRobot(List<Locker> lockers) {
     this.lockers = lockers;
   }
 
   public Receipt deposit(UserPackage userPackage) throws LockerIsFullException {
-    return lockers.stream()
-        .filter(Locker::isAvailable)
-        .findFirst()
-        .map(locker -> locker.deposit(userPackage))
-        .orElseThrow(LockerIsFullException::new);
+    Locker locker = getLocker();
+    return locker.deposit(userPackage);
   }
+
+  protected abstract Locker getLocker();
 
   Locker findPackageLocation(Receipt receipt) {
     return lockers.stream().filter(locker -> locker.hasPackage(receipt)).findFirst().orElseThrow(InvalidReceiptException::new);
