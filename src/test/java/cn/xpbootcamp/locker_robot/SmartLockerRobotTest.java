@@ -116,18 +116,4 @@ class SmartLockerRobotTest {
     assertThrows(InvalidReceiptException.class, () -> smartLockerRobot.withdraw(new Receipt()));
   }
 
-  @Test
-  void should_throw_exception_when_withdraw_given_used_receipt() {
-    // given
-    Locker firstLocker = new Locker(1);
-    Locker secondLocker = new Locker(2);
-    SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(firstLocker, secondLocker));
-    Receipt deposit = smartLockerRobot.deposit(new UserPackage());
-
-    // when
-    smartLockerRobot.withdraw(deposit);
-
-    // then
-    assertThrows(InvalidReceiptException.class, () -> smartLockerRobot.withdraw(deposit));
-  }
 }
