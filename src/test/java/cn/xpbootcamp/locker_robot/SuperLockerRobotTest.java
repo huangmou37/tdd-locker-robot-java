@@ -130,4 +130,15 @@ class SuperLockerRobotTest {
     // then
     assertEquals(userPackage, result);
   }
+
+  @Test
+  void should_throw_exception_when_withdraw_given_invalid_receipt() {
+    // given
+    Locker firstLocker = new Locker(1);
+    Locker secondLocker = new Locker(2);
+    SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(firstLocker, secondLocker));
+
+    // when & then
+    assertThrows(InvalidReceiptException.class, () -> superLockerRobot.withdraw(new Receipt()));
+  }
 }
