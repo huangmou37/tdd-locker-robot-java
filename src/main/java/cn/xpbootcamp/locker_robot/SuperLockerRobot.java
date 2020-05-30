@@ -1,5 +1,7 @@
 package cn.xpbootcamp.locker_robot;
 
+import cn.xpbootcamp.locker_robot.exception.LockerIsFullException;
+
 import java.util.List;
 
 public class SuperLockerRobot extends AbstractLockerRobot {
@@ -16,6 +18,6 @@ public class SuperLockerRobot extends AbstractLockerRobot {
             return a;
           }
           return b;
-        }).orElse(null);
+        }).orElseThrow(LockerIsFullException::new);
   }
 }

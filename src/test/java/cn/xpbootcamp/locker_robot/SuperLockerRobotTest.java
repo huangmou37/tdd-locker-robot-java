@@ -1,6 +1,7 @@
 package cn.xpbootcamp.locker_robot;
 
 import cn.xpbootcamp.locker_robot.exception.InvalidReceiptException;
+import cn.xpbootcamp.locker_robot.exception.LockerIsFullException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -100,5 +101,16 @@ class SuperLockerRobotTest {
     assertThrows(InvalidReceiptException.class, () -> thirdLocker.withdraw(receipt));
   }
 
+  @Test
+  void should_throw_exception_when_deposit_given_two_full_lockers() {
+    // given
+    Locker firstLocker = new Locker(1);
+    Locker secondLocker = new Locker(1);
+    SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(firstLocker, secondLocker));
+    superLockerRobot.deposit(new UserPackage());
+    superLockerRobot.deposit(new UserPackage());
 
+    // when & then
+    assertThrows(LockerIsFullException.class, () -> superLockerRobot.deposit(new UserPackage()));
+  }
 }
