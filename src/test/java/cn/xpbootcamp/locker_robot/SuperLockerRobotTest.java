@@ -113,4 +113,21 @@ class SuperLockerRobotTest {
     // when & then
     assertThrows(LockerIsFullException.class, () -> superLockerRobot.deposit(new UserPackage()));
   }
+
+  @Test
+  void should_return_deposited_package_when_withdraw_given_valid_receipt_with_package_in_first_locker() {
+    // given
+    Locker firstLocker = new Locker(2);
+    Locker secondLocker = new Locker(1);
+    SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(firstLocker, secondLocker));
+
+    UserPackage userPackage = new UserPackage();
+    Receipt receipt = superLockerRobot.deposit(userPackage);
+
+    // when
+    UserPackage result = superLockerRobot.withdraw(receipt);
+
+    // then
+    assertEquals(userPackage, result);
+  }
 }
