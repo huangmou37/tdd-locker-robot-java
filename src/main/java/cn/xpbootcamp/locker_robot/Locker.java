@@ -39,6 +39,10 @@ public class Locker {
     return capacity - receiptToUserPackageMap.size();
   }
 
+  public float getVacancyRate() {
+    return (float) getRemaining() / capacity;
+  }
+
   public boolean hasPackage(Receipt receipt) {
     return receiptToUserPackageMap.containsKey(receipt.getReceiptNumber());
   }
