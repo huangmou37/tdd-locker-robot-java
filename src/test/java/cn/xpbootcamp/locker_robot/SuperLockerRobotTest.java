@@ -27,4 +27,20 @@ class SuperLockerRobotTest {
     assertEquals(depositedPackage, firstLocker.withdraw(receipt));
   }
 
+  @Test
+  void should_deposit_in_first_locker_and_return_receipt_when_deposit_given_two_non_full_lockers_and_first_has_higher_vacancy_rate_but_smaller_remaining() {
+    // given
+    Locker firstLocker = new Locker(1);
+    Locker secondLocker = new Locker(3);
+    SuperLockerRobot superLockerRobot = new SuperLockerRobot(Arrays.asList(firstLocker, secondLocker));
+    secondLocker.deposit(new UserPackage());
+
+    // when
+    UserPackage depositedPackage = new UserPackage();
+    Receipt receipt = superLockerRobot.deposit(depositedPackage);
+
+    // then
+    assertNotNull(receipt);
+    assertEquals(depositedPackage, firstLocker.withdraw(receipt));
+  }
 }
